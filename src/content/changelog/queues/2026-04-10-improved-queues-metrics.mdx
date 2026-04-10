@@ -27,6 +27,7 @@ const metrics = await env.QUEUE.metrics();
 metrics.backlogCount; // number
 metrics.backlogBytes; // number
 metrics.oldestMessageTimestamp; // number (milliseconds since epoch)
+```
 
 `env.QUEUE.send()` and `env.QUEUE.sendBatch()` also now return a metrics object on the response.
 
