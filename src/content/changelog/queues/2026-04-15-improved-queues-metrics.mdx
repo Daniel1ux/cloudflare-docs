@@ -3,14 +3,14 @@ title: Realtime backlog metrics now available for Queues
 description: Cloudflare Queues metrics now include realtime backlog size (in count & bytes) and oldest message timestamp
 products:
   - queues
-date: 2026-04-10
+date: 2026-04-15
 ---
 
 [Queues](/queues/), Cloudflare's managed message queue, now exposes realtime backlog metrics via the dashboard, REST API, and JavaScript API. Three new fields are available:
 
 - **`backlog_count`** — the number of unacknowledged messages in the queue
 - **`backlog_bytes`** — the total size of those messages in bytes
-- **`oldest_message_timestamp`** — the timestamp of the oldest unacknowledged message, useful for calculating how far behind your consumers are
+- **`oldest_message_timestamp_ms`** — the timestamp of the oldest unacknowledged message, useful for calculating how far behind your consumers are
 
 The following endpoints also now include a `metadata.metrics` object on the result field after successful message consumption:
 
@@ -23,10 +23,11 @@ The following endpoints also now include a `metadata.metrics` object on the resu
 Call `env.QUEUE.metrics()` to get realtime backlog metrics:
 
 ```ts
-const metrics = await env.QUEUE.metrics();
-metrics.backlogCount; // number
-metrics.backlogBytes; // number
-metrics.oldestMessageTimestamp; // number (milliseconds since epoch)
+const {
+  backlogCount,                // number
+  backlogBytes,                // number
+  oldestMessageTimestamp,      // Date | undefined
+} = await env.QUEUE.metrics()
 ```
 
 `env.QUEUE.send()` and `env.QUEUE.sendBatch()` also now return a metrics object on the response.
