@@ -15,7 +15,7 @@ Use this pattern when your workflow logic is not known at deploy time, but you s
 This setup has three parts:
 
 - **Loader Worker**: the front door. It receives HTTP requests, knows how to load Dynamic Worker code, and can create Workflow instances.
-- **Workflow class**: the durable orchestrator. It persists state, survives restarts, and executes steps, including steps that pause for days while waiting for human input.
+- **Workflow class**: the durable orchestrator. It persists state, survives restarts, and executes steps, including `step.waitForEvent` or `step.sleep`, which may be longrunning.
 - **Dynamic Worker**: the user-authored code that defines what the workflow actually does. It is loaded on-demand by script ID.
 
 ![Dynamic Workers and Workflows architecture diagram](~/assets/images/workflows/dynamic-workflows.png)
