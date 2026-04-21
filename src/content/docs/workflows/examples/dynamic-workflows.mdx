@@ -116,7 +116,7 @@ export default {
 
 You still deploy one normal Workflow class. Its job is to load the dynamic code for the current run and call it with the `WorkflowStep` object. This is what keeps the [Workflows API](/workflows/build/workers-api/), including `step.do()`, `step.sleep()`, and `step.waitForEvent()`, working as normal.
 
-Use `env.LOADER.get()` via the [Worker Loader API](/dynamic-workers/api-reference/#get) to load the Dynamic Worker for the current Workflow instance. If the loader already has a warm isolate for the same ID, it can reuse it. Otherwise, it calls the callback to create the Worker from the script in the workflow payload.
+Use `env.LOADER.get()` via the [Worker Loader API](/dynamic-workers/api-reference/#get) to load the Dynamic Worker for the current Workflow instance. In this case, we are defining the Dynamic Worker ID with `dyn-wf-${event.instanceId}`. If the loader already has a warm isolate for the same ID, it can reuse it. Otherwise, it calls the callback to create the Worker from the script in the workflow payload.
 
 <TypeScriptExample>
 
